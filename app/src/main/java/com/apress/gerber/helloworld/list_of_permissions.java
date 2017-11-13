@@ -3,10 +3,13 @@ package com.apress.gerber.helloworld;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.CompoundButton;
 import android.widget.ListView;
+import android.widget.Switch;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +28,11 @@ public class list_of_permissions extends AppCompatActivity {
 
         search_example(name);
         PrivilegeItemAdapter adapter = new PrivilegeItemAdapter(
-                list_of_permissions.this, R.layout.cell, pitList);
+                list_of_permissions.this, R.layout.layout, pitList);
         ListView listView = (ListView) findViewById( R.id.pList);
         listView.setAdapter(adapter);
+
+
 
 
     }
@@ -50,7 +55,7 @@ public class list_of_permissions extends AppCompatActivity {
                     pSize= pInfo.length;
                 }
                 for(int i=0;i<pSize;i++){
-                    PrivilegeItem Location = new PrivilegeItem( "", R.drawable.pi_location2_56x56 , pInfo[i]);
+                    PrivilegeItem Location = new PrivilegeItem( pkg.packageName, R.drawable.pi_location2_56x56 , pInfo[i]);
                     pitList.add(Location);
 
                 }
