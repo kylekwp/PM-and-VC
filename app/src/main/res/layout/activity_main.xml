@@ -17,25 +17,21 @@
         <ListView
             android:id="@+id/listPrivilege"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="445dp">
 
         </ListView>
-
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_below="@+id/pane1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-
-        >
+        android:orientation="vertical">
         <TextView
             android:id="@+id/isRooted"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="This Device is" />
-
     </RelativeLayout>
 
 </RelativeLayout>

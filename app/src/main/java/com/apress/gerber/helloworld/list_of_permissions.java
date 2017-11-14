@@ -22,11 +22,14 @@ import java.util.List;
  *
  *
 */
+
 public class list_of_permissions extends AppCompatActivity {
 
 
     private List<PrivilegeItem> pitList = new ArrayList<PrivilegeItem>();
+  
     private String name ="";
+  
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,9 +65,6 @@ public class list_of_permissions extends AppCompatActivity {
 
             }
         });
-
-
-
 
     }
 

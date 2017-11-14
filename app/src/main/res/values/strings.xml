@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Permission Checker</string>
+    <string name="toSysset_title">Help</string>
+    <string name="toSysset_text">Current application do not have necessary permission. Please click "go to system setting" in this dialog to manage certain permissions after which double click backward to return here.</string>
+    <string name="toSysset_quit">Exit</string>
+    <string name="toSysset_set">Setting</string>
 </resources>

@@ -25,7 +25,21 @@ import java.util.List;
  *
  * */
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+
+    public static final int PERMISSIONS_GRANTED = 0;
+    public static final int PERMISSIONS_DENIED = 1;
+    private static final int PERMISSION_REQUEST_CODE = 0;
+    private static final String EXTRA_PERMISSIONS =
+            "me.chunyu.clwang.permission.extra_permission";
+    private static final String PACKAGE_URL_SCHEME = "package:";
+
+    private Button buttonSysSet;
+
+    //get a list of installed apps.
+
+
 
 
 
@@ -49,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
         TextView textView = (TextView) findViewById( R.id.isRooted);
         ListView listView = (ListView) findViewById( R.id.listPrivilege);
         listView.setAdapter(adapter);
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
@@ -67,12 +80,6 @@ public class MainActivity extends AppCompatActivity {
         else{
             textView.setText("TheDevice is Not Rooted");
         }
-
-
-
-
-
-
     }
 
     private void initExample1() {
@@ -85,8 +92,6 @@ public class MainActivity extends AppCompatActivity {
         }
         for (PackageInfo pkg : appInstall) {
 
-
-
             try
             {
                 appIcon = pm.getApplicationIcon(pkg.packageName);
@@ -95,13 +100,11 @@ public class MainActivity extends AppCompatActivity {
             {
                 e.printStackTrace();
             }
-
             String[] pInfo = pkg.requestedPermissions;
             int pSize =0;
             if(pInfo!=null) {
                  pSize= pInfo.length;
             }
-
             PrivilegeItem Location = new PrivilegeItem( pkg.packageName, appIcon  ,"Granted ("+pSize+"/100)");
             pitList.add(Location);
 
@@ -111,5 +114,42 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.buttonSysSet:
+                showMissingPermissionDialog();break;
+            default:
+                break;
+        }
+    }
+
+    private void showMissingPermissionDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle(R.string.toSysset_title);
+        builder.setMessage(R.string.toSysset_text);
+
+        builder.setNegativeButton(R.string.toSysset_quit, new DialogInterface.OnClickListener() {
+            @Override public void onClick(DialogInterface dialog, int which) {
+                setResult(PERMISSIONS_DENIED);
+                finish();
+            }
+        });
+
+        builder.setPositiveButton(R.string.toSysset_set, new DialogInterface.OnClickListener() {
+            @Override public void onClick(DialogInterface dialog, int which) {
+                startAppSettings();
+            }
+        });
+
+        builder.show();
+    }
+
+    private void startAppSettings() {
+        Intent intent = new Intent(Settings.ACTION_SECURITY_SETTINGS);
+        //intent.setData(Uri.parse(PACKAGE_URL_SCHEME + getPackageName()));
+        startActivity(intent);
+    }
 
 }
