@@ -8,6 +8,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PermissionInfo;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,9 +16,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+/**
+ * Coded by Hongbin
+ *
+ * */
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         initExample1();
         PrivilegeItemAdapter adapter = new PrivilegeItemAdapter(
                 MainActivity.this, R.layout.cell, pitList);
+        TextView textView = (TextView) findViewById( R.id.isRooted);
         ListView listView = (ListView) findViewById( R.id.listPrivilege);
         listView.setAdapter(adapter);
 
@@ -50,12 +57,20 @@ public class MainActivity extends AppCompatActivity {
                 Intent newActivity = new Intent(view.getContext(), list_of_permissions.class);
                 newActivity.putExtra("name",pitList.get(position).getName());
                 startActivity(newActivity);
-
-
-
-
             }
         });
+
+        if((new root_checker()).isDeviceRooted()) {
+            textView.setText("TheDevice is Rooted");
+            textView.setTextColor(Color.RED);
+        }
+        else{
+            textView.setText("TheDevice is Not Rooted");
+        }
+
+
+
+
 
 
     }

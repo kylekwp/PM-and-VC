@@ -17,7 +17,11 @@ import android.widget.Switch;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Coded by Kwangil
+ *
+ *
+*/
 public class list_of_permissions extends AppCompatActivity {
 
 
