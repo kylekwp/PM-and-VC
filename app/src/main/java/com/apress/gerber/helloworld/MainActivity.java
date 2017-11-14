@@ -7,6 +7,8 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PermissionInfo;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -60,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initExample1() {
         PackageManager pm =getPackageManager();
-
+        Drawable appIcon = null;
         List<PackageInfo> appInstall = pm.getInstalledPackages(PackageManager.GET_PERMISSIONS );
         if(appInstall==null){
 
@@ -68,13 +70,24 @@ public class MainActivity extends AppCompatActivity {
         }
         for (PackageInfo pkg : appInstall) {
 
+
+
+            try
+            {
+                appIcon = pm.getApplicationIcon(pkg.packageName);
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+
             String[] pInfo = pkg.requestedPermissions;
             int pSize =0;
             if(pInfo!=null) {
                  pSize= pInfo.length;
             }
 
-            PrivilegeItem Location = new PrivilegeItem( pkg.packageName, R.drawable.pi_location2_56x56 ,"Granted ("+pSize+"/100)");
+            PrivilegeItem Location = new PrivilegeItem( pkg.packageName, appIcon  ,"Granted ("+pSize+"/100)");
             pitList.add(Location);
 
 

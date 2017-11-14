@@ -2,6 +2,8 @@ package com.apress.gerber.helloworld;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.provider.Settings;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -44,7 +46,9 @@ public class PrivilegeItemAdapter extends ArrayAdapter<PrivilegeItem>{
         TextView piName = (TextView) view.findViewById(R.id.TextView_privilegeName);
         TextView piwhoOwns = (TextView) view.findViewById(R.id.TextView_whoOwns);
 
-        piImage.setImageResource(pi.getImageID());
+        if(pi.getDrawable()!=null) {
+            piImage.setImageDrawable(pi.getDrawable());
+        }
         if(piName!=null) {
             piName.setText(pi.getName());
         }
@@ -71,8 +75,25 @@ public class PrivilegeItemAdapter extends ArrayAdapter<PrivilegeItem>{
 
                     }
                     */
-                    Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
-                    myContext.startActivity(intent);
+
+                    final int apiLevel = Build.VERSION.SDK_INT;
+                    Intent intent = new Intent();
+                    if (apiLevel >= 9) {
+
+                        myContext.startActivity(new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                                Uri.parse("package:" + pi.getName())));
+                    } else {
+                        final String appPkgName = (apiLevel == 8 ? "pkg" : "com.android.settings.ApplicationPkgName");
+                        intent.setAction(Intent.ACTION_VIEW);
+                        intent.setClassName("com.android.settings", "com.android.settings.InstalledAppDetails");
+                        intent.putExtra(appPkgName,pi.getName());
+                        myContext.startActivity(intent);
+                    }
+
+
+
+
+
 
                 }
 

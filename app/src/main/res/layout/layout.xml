@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,8 +11,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <LinearLayout
-        android:layout_width="250sp"
+    <RelativeLayout
+        android:id="@+id/cellFirst"
+        android:layout_width="330sp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
 
@@ -26,15 +27,19 @@
             android:layout_height="wrap_content"
             android:text="Granted(23/50), Example" />
 
-    </LinearLayout>
-    <Switch
-        android:id="@+id/simpleSwitch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:checked="true"/> <!-- set the current state of the Switch-->
+        <Switch
+            android:visibility="gone"
+            android:id="@+id/simpleSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:checked="true"/> <!-- set the current state of the Switch-->
+
+    </RelativeLayout>
 
 
 
 
 
-</LinearLayout>
+
+</RelativeLayout>
